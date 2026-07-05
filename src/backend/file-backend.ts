@@ -82,7 +82,7 @@ export class FileBackend implements StorageBackend {
     try {
       await rm(this.keyedPath(partition, key));
     } catch {
-      // 不在なら no-op。
+      // 不在なら no-op (expected behavior)。
     }
   }
 
