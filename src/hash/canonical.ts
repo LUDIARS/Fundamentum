@@ -25,7 +25,7 @@ function write(v: JsonValue): string {
       return v ? "true" : "false";
     case "number":
       if (!Number.isFinite(v)) {
-        throw new Error(`Fundamentum: 非有限数は canonicalize できない: ${String(v)}`);
+        throw new Error(`Fundamentum: 非有限数は canonicalize できない: ${JSON.stringify(v)}`);
       }
       // JSON.stringify は -0 を "0" に正規化し、整数/小数の表記も決定的。
       return JSON.stringify(v);
