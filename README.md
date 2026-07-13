@@ -79,6 +79,26 @@ const d = fm.catalog.diff(v1!, v2);
 
 ---
 
+## datahub — 中央集権 push/pull hub (共有配布層)
+
+PC を跨いで **全員の更新差分を共有配布**する常駐 hub。全データに hub 採番の
+リビジョンと Author (PC 単位 UUIDv4、表示名は別台帳) が付く。コンフリクトは
+LLM (claude -p) で自動判断して情報量が多い側を採用・ログ保存し、センシティブ
+データは push 時に成長型ブラックボックス検査 (Haiku) で遮断する。定期バックアップ付き。
+
+```sh
+cd datahub && npm install && npm run serve   # 起動は通常 Excubitor 経由 (port 4220)
+# テストコンソール: http://127.0.0.1:4220/ui/
+```
+
+- 設計: `spec/feature/data-foundation.md` / API 契約: `spec/interface/datahub-api.md`
+- 組み込みキット (クライアント + レスポンス表示 UI + Fm 用データテスト):
+  `packages/datahub-kit/` (README 参照)
+- 既存の master/user 2 層ライブラリ (`src/`) とは独立した自己完結パッケージ
+  (lib の依存ゼロは維持)。
+
+---
+
 ## ライセンス
 
 LUDIARS internal (private)。

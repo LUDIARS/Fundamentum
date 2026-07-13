@@ -5,3 +5,6 @@ logs/
 .DS_Store
 # local scratch data stores
 .fundamentum-data/
+
+# datahub の中央ストア (実データはコミットしない)
+/data/

@@ -1,0 +1,27 @@
+{
+  "name": "@fundamentum/datahub",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fundamentum データ管理基盤 hub — rev+author 全データ付与 / 中央集権 push-pull / LLM コンフリクト自動解決 / 成長型センシティブ検査 / 定期バックアップ",
+  "type": "module",
+  "main": "./dist/src/server/http.js",
+  "bin": {
+    "fundamentum-datahub": "./dist/src/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test \"dist/tests/*.test.js\"",
+    "serve": "npm run build && node dist/src/cli.js serve"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@ludiars/vestigium": "file:../lib/vestigium"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.0"
+  }
+}
