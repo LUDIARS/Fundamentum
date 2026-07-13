@@ -1,0 +1,44 @@
+# Fundamentum CI — lib (vitest) + datahub (node:test) + datahub-kit (node:test)
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: lib install + test
+        run: |
+          npm ci --include=dev
+          npm run typecheck
+          npm test
+      - name: build vestigium submodule
+        working-directory: lib/vestigium
+        run: |
+          npm ci --include=dev
+          npm run build
+      - name: datahub install + test
+        working-directory: datahub
+        env:
+          # CI に claude CLI は無い。LLM 経路はテストでスタブ注入済み・検出は明示無効化
+          FUNDAMENTUM_DATAHUB_LLM: "0"
+        run: |
+          npm ci --include=dev
+          npm test
+      - name: datahub-kit data tests
+        working-directory: packages/datahub-kit
+        env:
+          FUNDAMENTUM_DATAHUB_LLM: "0"
+        run: npm test

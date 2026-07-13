@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fundamentum datahub テストコンソール</title>
+  <style>
+    body { margin: 0; padding: 16px; background: #1a1c20; color: #ddd;
+           font: 13px/1.6 system-ui, sans-serif; }
+    h1 { font-size: 16px; margin: 0 0 4px; color: #fff; }
+    .hint { color: #9ab; margin: 0 0 12px; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 900px) { .cols { grid-template-columns: 1fr; } }
+    fieldset { border: 1px solid #3a3f46; border-radius: 8px; margin: 0 0 12px; }
+    legend { color: #9ab; padding: 0 6px; }
+    label { display: block; margin: 6px 0 2px; color: #9ab; }
+    input, select, textarea { width: 100%; box-sizing: border-box; background: #16181c;
+      color: #eee; border: 1px solid #3a3f46; border-radius: 6px; padding: 6px 8px; }
+    textarea { min-height: 140px; font-family: Consolas, monospace; }
+    fm-datahub-panel { margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Fundamentum datahub テストコンソール</h1>
+  <p class="hint">
+    push するデータを左で編集し、パネルの Push / Pull でレスポンス (採番 rev / 競合解決 /
+    センシティブ遮断) を確認する。このページは datahub の <code>/ui</code> から配信される。
+  </p>
+  <fm-datahub-panel id="panel"></fm-datahub-panel>
+  <div class="cols">
+    <fieldset>
+      <legend>push するデータ</legend>
+      <label>kind (名前空間付き種別)</label>
+      <input id="kind" value="test.sample" />
+      <label>id</label>
+      <input id="dataId" value="sample-1" />
+      <label>format</label>
+      <select id="format">
+        <option value="json">json</option>
+        <option value="graph">graph</option>
+        <option value="csv">csv</option>
+        <option value="text">text</option>
+      </select>
+      <label>data (json/graph は JSON、csv/text は生テキスト)</label>
+      <textarea id="data">{"label": "サンプル", "value": 1}</textarea>
+    </fieldset>
+    <fieldset>
+      <legend>pull した差分 (最新)</legend>
+      <textarea id="pulled" readonly placeholder="Pull すると受信したコミットがここに出ます"></textarea>
+    </fieldset>
+  </div>
+  <script type="module">
+    import { DatahubClient, loadBrowserIdentity } from "./kit/client.mjs";
+    import "./kit/panel.mjs";
+
+    const identity = loadBrowserIdentity();
+    const client = new DatahubClient({ author: identity.author, name: identity.name });
+
+    const $ = (id) => document.getElementById(id);
+    $("panel").configure({
+      client,
+      getPayloadItems: async () => {
+        const format = $("format").value;
+        const raw = $("data").value;
+        const data = format === "json" || format === "graph" ? JSON.parse(raw) : raw;
+        return [{ kind: $("kind").value.trim(), id: $("dataId").value.trim(), payload: { format, data } }];
+      },
+      applyRecords: (records) => {
+        $("pulled").value = records
+          .map((r) => `rev ${r.rev} ${r.kind}/${r.id} (${r.payload.format})\n${JSON.stringify(r.payload.data, null, 2)}`)
+          .join("\n\n");
+      },
+    });
+  </script>
+</body>
+</html>

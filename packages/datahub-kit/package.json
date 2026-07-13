@@ -1,0 +1,21 @@
+{
+  "name": "@fundamentum/datahub-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fundamentum datahub 組み込みキット — push/pull クライアント + レスポンス表示 UI (<fm-datahub-panel>) + 設定 + Fg 用データテスト。依存ゼロ・ブラウザ/Node 両用",
+  "type": "module",
+  "main": "./src/client.mjs",
+  "exports": {
+    ".": "./src/client.mjs",
+    "./client": "./src/client.mjs",
+    "./panel": "./src/panel.mjs",
+    "./render-model": "./src/render_model.mjs",
+    "./config": "./src/config.mjs"
+  },
+  "scripts": {
+    "test": "node --test \"tests/*.test.mjs\""
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
