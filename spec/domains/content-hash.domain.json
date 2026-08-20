@@ -1,0 +1,11 @@
+{
+  "name": "content-hash",
+  "description": "内容ハッシュ。 データの同一性判定と差分検出の土台。",
+  "presetRules": [],
+  "templateRules": [],
+  "membership": [
+    {
+      "pathPattern": "(^|/)src/hash/(?:.*/)?[^/]+$"
+    }
+  ]
+}

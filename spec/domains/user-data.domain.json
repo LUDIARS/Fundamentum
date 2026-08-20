@@ -1,0 +1,11 @@
+{
+  "name": "user-data",
+  "description": "利用者データ。 個人に紐づく基礎情報の保持。",
+  "presetRules": [],
+  "templateRules": [],
+  "membership": [
+    {
+      "pathPattern": "(^|/)src/user/(?:.*/)?[^/]+$"
+    }
+  ]
+}

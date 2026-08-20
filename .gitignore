@@ -8,3 +8,6 @@ logs/
 
 # datahub の中央ストア (実データはコミットしない)
 /data/
+
+# Anatomia のローカル状態 (ドメイン定義の正本は spec/domains/)
+/.anatomia/

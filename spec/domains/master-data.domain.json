@@ -1,0 +1,14 @@
+{
+  "name": "master-data",
+  "description": "マスタデータの正本。 中央で保持する基準データの定義と配布。",
+  "presetRules": [],
+  "templateRules": [],
+  "membership": [
+    {
+      "pathPattern": "(^|/)src/master/(?:.*/)?[^/]+$"
+    },
+    {
+      "pathPattern": "(^|/)src/resolve/(?:.*/)?[^/]+$"
+    }
+  ]
+}

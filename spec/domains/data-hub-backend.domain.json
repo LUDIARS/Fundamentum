@@ -1,0 +1,11 @@
+{
+  "name": "data-hub-backend",
+  "description": "データ管理基盤のサーバ側。 push/pull の受口と保管。",
+  "presetRules": [],
+  "templateRules": [],
+  "membership": [
+    {
+      "pathPattern": "(^|/)src/backend/(?:.*/)?[^/]+$"
+    }
+  ]
+}
