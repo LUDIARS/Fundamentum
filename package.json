@@ -6,6 +6,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
+    "./stroke-data": {
+      "types": "./dist/stroke-data/index.d.ts",
+      "import": "./dist/stroke-data/index.js"
+    },
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"

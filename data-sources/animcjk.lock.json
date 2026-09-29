@@ -1,0 +1,55 @@
+{
+  "provider": "animcjk",
+  "repository": "https://github.com/parsimonhi/animCJK",
+  "revision": "ec5e17cca76c87587790bcbce5ea0b4d4fb753d6",
+  "files": [
+    {
+      "path": "graphicsJa.txt",
+      "local": "graphicsJa.txt",
+      "sha256": "2bcd1c6d186e5376c5f9202b4eae2eaeff13c2566675a55f1c9dd548a2ef31c8",
+      "bytes": 21862957
+    },
+    {
+      "path": "graphicsJaKana.txt",
+      "local": "graphicsJaKana.txt",
+      "sha256": "50041c8fb477e08d77bcf96716003989b8b1f95a751e4d2628b7339de3b58f38",
+      "bytes": 202547
+    },
+    {
+      "path": "graphicsKo.txt",
+      "local": "graphicsKo.txt",
+      "sha256": "7e703f34df54080281252a5c87a7106b85034b81fdbf93d37c07009a1448202e",
+      "bytes": 1387824
+    },
+    {
+      "path": "graphicsZhHans.txt",
+      "local": "graphicsZhHans.txt",
+      "sha256": "5a5c157fddd0fd9bfaf5580b25c20a1ba2b0cabc0b7142e09f6149cbd5547798",
+      "bytes": 22561924
+    },
+    {
+      "path": "graphicsZhHant.txt",
+      "local": "graphicsZhHant.txt",
+      "sha256": "731fe26345833745dc7d37c8213f3ca91585aa0ee18179c0ccda91be41ff6aec",
+      "bytes": 2988095
+    },
+    {
+      "path": "licenses/COPYING.txt",
+      "local": "licenses__COPYING.txt",
+      "sha256": "4d284bbcd461e3fbaa6e2b61740ad68b281fce92ab8be817a0be5267d632a71f",
+      "bytes": 1476
+    },
+    {
+      "path": "licenses/APL/english/ARPHICPL.TXT",
+      "local": "licenses__APL__english__ARPHICPL.TXT",
+      "sha256": "3a5e90c0957524a89e48203febcd4492ca4393678abaa7e5b4d70f3ff32b386d",
+      "bytes": 6901
+    },
+    {
+      "path": "licenses/LGPL.txt",
+      "local": "licenses__LGPL.txt",
+      "sha256": "a5681bf9b05db14d86776930017c647ad9e6e56ff6bbcfdf21e5848288dfaf1b",
+      "bytes": 7651
+    }
+  ]
+}

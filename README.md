@@ -99,6 +99,14 @@ cd datahub && npm install && npm run serve   # 起動は通常 Excubitor 経由 
 
 ---
 
-## ライセンス
+## 書き順データ
+
+`fundamentum/stroke-data` は AnimCJK の固定版から書き順と筆跡を取り込み、
+言語・提供元・版別のカタログとオフライン配布用JSONを生成します。
+取得元のハッシュ、出典、ライセンス全文を保持します。
+導入・再取得手順と収録範囲は [書き順データ仕様](spec/feature/stroke-data.md) を参照してください。
+データのライセンスは以下のコードライセンスとは別です。
+
+## コードのライセンス
 
 LUDIARS internal (private)。
