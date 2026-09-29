@@ -1,7 +1,7 @@
 {
   "name": "stroke-data-catalog",
   "description": "Shared stroke-order data provenance, validated import and versioned distribution",
-  "specRefs": ["spec/feature/stroke-data.md"],
+  "specRefs": ["spec/feature/stroke-data.md", "spec/feature/tracing-groups.md"],
   "presetRules": [],
   "templateRules": [],
   "membership": [
