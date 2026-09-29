@@ -1,12 +1,22 @@
 {
   "name": "stroke-data-catalog",
   "description": "Shared stroke-order data provenance, validated import and versioned distribution",
-  "specRefs": ["spec/feature/stroke-data.md", "spec/feature/tracing-groups.md"],
+  "specRefs": [
+    "spec/feature/stroke-data.md",
+    "spec/feature/tracing-groups.md",
+    "spec/feature/full-japanese-strokes.md"
+  ],
   "presetRules": [],
   "templateRules": [],
   "membership": [
-    {"pathPattern": "(^|/)src/stroke-data/[^/]+$"},
-    {"pathPattern": "(^|/)scripts/strokes/[^/]+$"},
-    {"pathPattern": "(^|/)data-sources/[^/]+$"}
+    {
+      "pathPattern": "(^|/)src/stroke-data/[^/]+$"
+    },
+    {
+      "pathPattern": "(^|/)scripts/strokes/[^/]+$"
+    },
+    {
+      "pathPattern": "(^|/)data-sources/[^/]+$"
+    }
   ]
 }

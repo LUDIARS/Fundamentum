@@ -4,15 +4,18 @@ import {randomUUID,createHash} from 'node:crypto';
 import {Foundation,contentIdOf} from '../../dist/index.js';
 import {parseAnimCjkTracing} from '../../dist/stroke-data/index.js';
 import {readLock,verifiedFile} from './source-files.mjs';
+import {localTracingSource} from './local-tracing-source.mjs';
 
 // @implements SPEC-FM-TRACING-GROUPS
-const [selectionPath,lockPath,cachePath,storePath,outputPath]=process.argv.slice(2);
+const [selectionPath,lockPath,cachePath,storePath,outputPath,svgRoot,svgManifest]=process.argv.slice(2);
 if(!outputPath) throw Error('Usage: import-tracing.mjs <characters.json> <source-lock> <cache> <store> <output>');
 const selection=JSON.parse(await readFile(selectionPath,'utf8'));
 const characters=selection.characters;
 if(!Array.isArray(characters)||!characters.length||characters.length>10000||
    new Set(characters).size!==characters.length||characters.some(c=>typeof c!=='string'||[...c].length!==1)) throw Error('Invalid character selection');
 const lock=await readLock(lockPath),cache=resolve(cachePath),fm=Foundation.onDisk(resolve(storePath));
+if(Boolean(svgRoot)!==Boolean(svgManifest))throw Error('Local SVG directory and manifest must be supplied together');
+const localSvg=svgRoot?await localTracingSource(resolve(svgRoot),resolve(svgManifest),lock.revision):null;
 await mkdir(cache,{recursive:true});
 const notices=[];
 for(const file of lock.files.filter(f=>f.path.startsWith('licenses/'))){
@@ -31,9 +34,13 @@ for(const character of [...characters].sort((a,b)=>a.codePointAt(0)-b.codePointA
   const cp=character.codePointAt(0),isKana=cp>=0x3040&&cp<=0x30ff;
   const path=`${isKana?'svgsJaKana':'svgsJa'}/${cp}.svg`;
   const url=`https://raw.githubusercontent.com/parsimonhi/animCJK/${lock.revision}/${path}`;
-  const response=await fetch(url,{signal:AbortSignal.timeout(30000)});
-  if(!response.ok) throw Error(`SVG acquisition failed ${path}: ${response.status}`);
-  const bytes=Buffer.from(await response.arrayBuffer());
+  let bytes;
+  if(localSvg)bytes=await localSvg(path);
+  else{
+    const response=await fetch(url,{signal:AbortSignal.timeout(30000)});
+    if(!response.ok) throw Error(`SVG acquisition failed ${path}: ${response.status}`);
+    bytes=Buffer.from(await response.arrayBuffer());
+  }
   if(bytes.length>1024*1024) throw Error('SVG too large');
   const svg=new TextDecoder('utf-8',{fatal:true}).decode(bytes);
   let glyph;
