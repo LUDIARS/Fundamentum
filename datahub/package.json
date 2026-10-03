@@ -15,9 +15,10 @@
     "serve": "npm run build && node dist/src/cli.js serve"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12.0"
   },
   "dependencies": {
+    "@ludiars/one-shot": "file:../lib/lapilli/packages/one-shot",
     "@ludiars/vestigium": "file:../lib/vestigium"
   },
   "devDependencies": {

@@ -3,6 +3,7 @@
   "description": "データ管理基盤のサービス群。 競合解決、 機微データの扱い、 バックアップ、 LLM 補助。",
   "presetRules": [],
   "templateRules": [],
+  "specRefs": ["spec/feature/shared-one-shot.md"],
   "membership": [
     {
       "pathPattern": "(^|/)datahub/(?:.*/)?[^/]+$"

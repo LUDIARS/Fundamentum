@@ -4,7 +4,8 @@
  * (引数渡しの quoting / インジェクションを避ける)。不在は null を返し、呼び出し側が
  * reject / pending として観測可能に扱う (無言スタブへのフォールバック禁止)。
  */
-import { spawn, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
+import { spawnOneShot as spawn } from "@ludiars/one-shot";
 
 export interface ClaudeCli {
   cmd: string;
@@ -40,6 +41,7 @@ export interface ClaudeJsonRequest {
 export function runClaudeJson(cli: ClaudeCli, req: ClaudeJsonRequest): Promise<unknown> {
   return new Promise((resolvePromise, rejectPromise) => {
     const child = spawn(cli.cmd, ["-p", "--model", req.model], {
+      cwd: process.cwd(),
       stdio: ["pipe", "pipe", "pipe"],
       windowsHide: true,
     });
